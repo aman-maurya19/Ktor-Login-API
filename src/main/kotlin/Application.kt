@@ -1,8 +1,6 @@
 package com.example
 
-import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
-import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 
 
 fun main(args: Array<String>) {
@@ -10,6 +8,9 @@ fun main(args: Array<String>) {
 
 }
 
+fun Application.module(configureSerialization: () -> Unit) {
+    DatabaseFactory.init() // Ye database connect karega
+    configureSerialization()
 fun Application.module() {
 
     install(ContentNegotiation) {

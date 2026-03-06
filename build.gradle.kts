@@ -29,4 +29,15 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation")
     implementation("io.ktor:ktor-serialization-kotlinx-json")
 
+    implementation("org.jetbrains.exposed:exposed-core:0.41.1")
+    implementation("org.jetbrains.exposed:exposed-dao:0.41.1")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.41.1")
+
+    // Database Drivers
+    implementation("org.postgresql:postgresql:42.6.0") // Render ke liye
+    implementation("com.zaxxer:HikariCP:5.0.1")       // Connection pooling
+
+    // Password Hashing (Security ke liye)
+    implementation("org.mindrot:jbcrypt:0.4")
+
 }
