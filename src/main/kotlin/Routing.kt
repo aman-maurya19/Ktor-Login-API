@@ -11,6 +11,7 @@ import org.jetbrains.exposed.sql.select
 
 fun Application.configureRouting() {
     routing {
+
         get("/") {
             call.respondText("Backend is running successfully 🚀")
         }
@@ -37,20 +38,11 @@ fun Application.configureRouting() {
 
         // --- LOGIN API ---
         post("/login") {
+
             val request = call.receive<LoginRequest>()
 
-            val user = DatabaseFactory.dbQuery {
-                UserTable.select { UserTable.email eq request.email }.singleOrNull()
-            }
-
-            if (user != null && org.mindrot.jbcrypt.BCrypt.checkpw(request.password, user[UserTable.password])) {
-                call.respond(mapOf(
-                    "status" to "success",
-                    "message" to "Login successful",
-                    "data" to mapOf("name" to user[UserTable.name], "mobile" to user[UserTable.mobile])
-                ))
+                        "status" to "success",
             } else {
-                call.respond(HttpStatusCode.Unauthorized, mapOf("status" to "error", "message" to "Invalid email or password"))
             }
         }
     }

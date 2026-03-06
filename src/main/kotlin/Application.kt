@@ -11,6 +11,12 @@ fun main(args: Array<String>) {
 fun Application.module(configureSerialization: () -> Unit) {
     DatabaseFactory.init() // Ye database connect karega
     configureSerialization()
+fun Application.module() {
+
+    install(ContentNegotiation) {
+        json()
+    }
+
     configureRouting()
 }
 
