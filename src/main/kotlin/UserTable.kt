@@ -22,8 +22,19 @@ object DatabaseFactory {
         val config = HikariConfig().apply {
             driverClassName = "org.postgresql.Driver"
 
-            // Render ki DATABASE_URL read karega, agar nahi mili toh localhost dekhega
-            jdbcUrl = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/your_local_db"
+            // Render ki URL read karega
+            val rawUrl = System.getenv("DATABASE_URL")
+
+            // Ye logic Render ke "postgres://" ko "jdbc:postgresql://" mein badal dega
+            jdbcUrl = if (rawUrl != null) {
+                if (rawUrl.startsWith("postgres://")) {
+                    rawUrl.replace("postgres://", "jdbc:postgresql://")
+                } else {
+                    rawUrl
+                }
+            } else {
+                "jdbc:postgresql://localhost:5432/your_local_db"
+            }
 
             maximumPoolSize = 3
             isAutoCommit = false
