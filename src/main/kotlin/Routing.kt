@@ -15,7 +15,6 @@ fun Application.configureRouting() {
         get("/") {
             call.respondText("Backend is running successfully 🚀")
         }
-
         // --- SIGNUP API ---
         post("/signup") {
             val request = call.receive<SignupRequest>()

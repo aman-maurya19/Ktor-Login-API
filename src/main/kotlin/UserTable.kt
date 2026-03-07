@@ -21,13 +21,16 @@ object DatabaseFactory {
     fun init() {
         val config = HikariConfig().apply {
             driverClassName = "org.postgresql.Driver"
-            // Render ka URL yahan jayega ya environment variable se aayega
-            jdbcUrl = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/test"
+
+            // Render ki DATABASE_URL read karega, agar nahi mili toh localhost dekhega
+            jdbcUrl = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/your_local_db"
+
             maximumPoolSize = 3
-            isReadOnly = false
+            isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"
             validate()
         }
+
         val dataSource = HikariDataSource(config)
         Database.connect(dataSource)
 
