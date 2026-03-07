@@ -22,7 +22,6 @@ object DatabaseFactory {
         val config = HikariConfig().apply {
             driverClassName = "org.postgresql.Driver"
 
-            // Render ki URL read karega
             val rawUrl = System.getenv("DATABASE_URL")
 
             // Ye logic Render ke "postgres://" ko "jdbc:postgresql://" mein badal dega
